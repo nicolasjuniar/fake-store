@@ -22,7 +22,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp">
+        android:layout_marginTop="72dp">
 
         <LinearLayout
             android:id="@+id/layout_title"
@@ -168,7 +168,6 @@
             android:layout_marginStart="60dp"
             android:layout_marginTop="220dp"
             android:layout_marginEnd="60dp"
-            android:enabled="false"
             android:text="Login"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

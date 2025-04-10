@@ -17,6 +17,8 @@ class AuthViewModel(
             isLoading.postValue(true)
             fakeStoreRepository.login(loginRequest).onResult({
                 fakeStoreSharedPreference.token = it.token
+                message.postValue("Login Success")
+                isSuccess.postValue(true)
                 isLoading.postValue(false)
             }, {
                 message.postValue(it)

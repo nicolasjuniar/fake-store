@@ -11,6 +11,10 @@ abstract class BaseViewBindingActivity<VB : ViewBinding> : AppCompatActivity() {
         getContentView()
     }
 
+    protected val progressBarDialog by lazy {
+        ProgressBarDialog(this)
+    }
+
     abstract fun getContentView(): VB
 
     abstract fun onViewReady(savedInstanceState: Bundle?)
@@ -23,5 +27,29 @@ abstract class BaseViewBindingActivity<VB : ViewBinding> : AppCompatActivity() {
 
     protected fun <T> LiveData<T>.onChangeValue(action: (T) -> Unit) {
         observe(this@BaseViewBindingActivity) { data -> data?.let(action) }
+    }
+
+    protected fun observeViewModel(viewModel: BaseViewModel) {
+        with(viewModel) {
+            observeLoadingViewModel(this)
+            observeMessageViewModel(this)
+        }
+    }
+
+
+    open fun observeLoadingViewModel(viewModel: BaseViewModel) {
+        viewModel.observeLoading().onChangeValue {
+            if (it) {
+                progressBarDialog.show()
+            } else {
+                progressBarDialog.dismiss()
+            }
+        }
+    }
+
+    open fun observeMessageViewModel(viewModel: BaseViewModel) {
+        viewModel.observeMessage().onChangeValue {
+            showToast(it)
+        }
     }
 }
