@@ -1,4 +1,4 @@
-package juniar.nicolas.fakestore.ui.auth
+package juniar.nicolas.fakestore.ui.login
 
 import androidx.lifecycle.viewModelScope
 import juniar.nicolas.fakestore.data.request.LoginRequest
@@ -7,7 +7,7 @@ import juniar.nicolas.fakestore.util.BaseViewModel
 import juniar.nicolas.fakestore.util.FakeStoreSharedPreference
 import kotlinx.coroutines.launch
 
-class AuthViewModel(
+class LoginViewModel(
     private val fakeStoreRepository: FakeStoreRepository,
     private val fakeStoreSharedPreference: FakeStoreSharedPreference
 ) : BaseViewModel() {
@@ -16,13 +16,10 @@ class AuthViewModel(
         viewModelScope.launch {
             isLoading.postValue(true)
             fakeStoreRepository.login(loginRequest).onResult({
-                fakeStoreSharedPreference.token = it.token
                 message.postValue("Login Success")
                 isSuccess.postValue(true)
-                isLoading.postValue(false)
             }, {
                 message.postValue(it)
-                isLoading.postValue(false)
             })
         }
     }

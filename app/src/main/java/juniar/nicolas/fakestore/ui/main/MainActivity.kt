@@ -1,33 +1,24 @@
 package juniar.nicolas.fakestore.ui.main
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import juniar.nicolas.fakestore.R
 import juniar.nicolas.fakestore.databinding.ActivityMainBinding
+import juniar.nicolas.fakestore.util.BaseViewBindingActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseViewBindingActivity<ActivityMainBinding>() {
+    override fun getContentView() = ActivityMainBinding.inflate(layoutInflater)
 
-    private lateinit var binding: ActivityMainBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val navView: BottomNavigationView = binding.navView
-
+    override fun onViewReady(savedInstanceState: Bundle?) {
+        val navView: BottomNavigationView = viewBinding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_product, R.id.navigation_cart
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

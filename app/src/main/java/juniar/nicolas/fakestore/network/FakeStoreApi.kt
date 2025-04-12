@@ -1,17 +1,26 @@
 package juniar.nicolas.fakestore.network
 
+import juniar.nicolas.fakestore.data.model.ProductModel
 import juniar.nicolas.fakestore.data.request.LoginRequest
 import juniar.nicolas.fakestore.data.response.LoginResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface FakeStoreApi {
 
-    @GET("products")
-    suspend fun getProducts(): Response<String>
-
     @POST("auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
+
+    @GET("products")
+    suspend fun getProducts(): Response<List<ProductModel>>
+
+    @GET("products/categories")
+    suspend fun getCategories(): Response<List<String>>
+
+    @GET("products/category/{category_name}")
+    suspend fun getProductsByCategory(@Path("category_name") categoryName: String)
+            : Response<List<ProductModel>>
 }

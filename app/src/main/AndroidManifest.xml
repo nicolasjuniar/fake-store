@@ -17,7 +17,7 @@
         android:theme="@style/Theme.FakeStore"
         tools:targetApi="31">
         <activity
-            android:name=".ui.auth.AuthActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.FakeStore.NoActionBar">
             <intent-filter>
@@ -27,6 +27,9 @@
         </activity>
         <activity
             android:name=".ui.main.MainActivity"
+            android:theme="@style/Theme.FakeStore" />
+        <activity
+            android:name=".ui.main.product.ListCategoryActivity"
             android:theme="@style/Theme.FakeStore" />
     </application>
 
