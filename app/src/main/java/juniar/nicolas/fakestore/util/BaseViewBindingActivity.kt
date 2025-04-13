@@ -42,11 +42,7 @@ abstract class BaseViewBindingActivity<VB : ViewBinding> : AppCompatActivity() {
 
     open fun observeLoadingViewModel(viewModel: BaseViewModel) {
         viewModel.observeLoading().onChangeValue {
-            if (it) {
-                progressBarDialog.show()
-            } else {
-                progressBarDialog.dismiss()
-            }
+            progressBarDialog.isVisible(it)
         }
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
@@ -65,5 +66,46 @@
         app:layout_constraintBottom_toBottomOf="@id/rb_product"
         app:layout_constraintLeft_toRightOf="@id/rb_product"
         app:layout_constraintTop_toTopOf="@id/rb_product" />
+
+    <LinearLayout
+        android:id="@+id/quantity_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_bg_stroke_purple_500"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/iv_decrease"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_remove_24dp_purple" />
+
+        <TextView
+            android:id="@+id/tv_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:fontFamily="@font/source_sans_pro_semi_bold"
+            android:text="10"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_increase"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="6dp"
+            android:src="@drawable/ic_add_24dp_purple" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

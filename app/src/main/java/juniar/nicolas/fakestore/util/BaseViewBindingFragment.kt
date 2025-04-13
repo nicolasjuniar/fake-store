@@ -55,11 +55,7 @@ abstract class BaseViewBindingFragment<VB : ViewBinding> : Fragment() {
 
     open fun observeLoadingViewModel(viewModel: BaseViewModel) {
         viewModel.observeLoading().onChangeValue {
-            if (it) {
-                progressBarDialog.show()
-            } else {
-                progressBarDialog.dismiss()
-            }
+            progressBarDialog.isVisible(it)
         }
     }
 

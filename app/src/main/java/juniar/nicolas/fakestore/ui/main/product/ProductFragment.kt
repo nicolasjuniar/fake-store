@@ -17,6 +17,7 @@ import juniar.nicolas.fakestore.ui.main.product.ListCategoryActivity.Companion.C
 import juniar.nicolas.fakestore.ui.main.product.ListCategoryActivity.Companion.LIST_CATEGORY
 import juniar.nicolas.fakestore.util.BaseViewBindingFragment
 import juniar.nicolas.fakestore.util.GeneralRecyclerViewBindingAdapter
+import juniar.nicolas.fakestore.util.gone
 import juniar.nicolas.fakestore.util.onLoad
 import juniar.nicolas.fakestore.util.openActivity
 import juniar.nicolas.fakestore.util.orEmpty
@@ -39,6 +40,7 @@ class ProductFragment : BaseViewBindingFragment<FragmentProductBinding>() {
                     tvPrice.text = "$${product.price}"
                     rbProduct.rating = product.rating?.rate?.toFloat().orEmpty()
                     tvRating.text = "${product.rating?.rate}(${product.rating?.count})"
+                    quantityContainer.gone()
                 }
             },
             itemListener = { product, _, _ ->

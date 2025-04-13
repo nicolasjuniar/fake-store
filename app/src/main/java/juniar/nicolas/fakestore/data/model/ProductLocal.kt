@@ -24,7 +24,7 @@ data class ProductLocal(
     @ColumnInfo("title")
     val title: String?,
     @ColumnInfo("quantity")
-    val quantity: Int = 0,
+    var quantity: Int = 0,
     @ColumnInfo("username")
     val username: String = ""
 )

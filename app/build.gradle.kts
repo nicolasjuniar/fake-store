@@ -18,6 +18,15 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = "key0"
+            keyPassword = "ch/6Q{mHJ(S_:DxE8=?e;u"
+            storeFile = file("fake-store.jks")
+            storePassword = "Q_xzF8kwT`+?H-<UAnR{:p"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -26,6 +35,7 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "BASE_URL", "\"https://fakestoreapi.com/\"")
+            signingConfig = signingConfigs.getByName("release")
         }
         debug {
             buildConfigField("String", "BASE_URL", "\"https://fakestoreapi.com/\"")
