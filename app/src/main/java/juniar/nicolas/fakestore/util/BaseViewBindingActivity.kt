@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.viewbinding.ViewBinding
+import org.koin.android.ext.android.inject
 
 abstract class BaseViewBindingActivity<VB : ViewBinding> : AppCompatActivity() {
 
@@ -14,6 +15,8 @@ abstract class BaseViewBindingActivity<VB : ViewBinding> : AppCompatActivity() {
     protected val progressBarDialog by lazy {
         ProgressBarDialog(this)
     }
+
+    protected val diffCallback: DiffCallback by inject()
 
     abstract fun getContentView(): VB
 

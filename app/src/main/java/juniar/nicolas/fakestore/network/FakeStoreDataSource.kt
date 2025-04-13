@@ -17,6 +17,12 @@ class FakeStoreDataSource(private val fakeStoreApi: FakeStoreApi) : BaseDataSour
         }
     }
 
+    suspend fun getProduct(idProduct: Int) = suspendDataResult {
+        getResult {
+            fakeStoreApi.getProduct(idProduct)
+        }
+    }
+
     suspend fun getCategories() = suspendDataResult {
         getResult {
             fakeStoreApi.getCategories()
@@ -26,6 +32,12 @@ class FakeStoreDataSource(private val fakeStoreApi: FakeStoreApi) : BaseDataSour
     suspend fun getProductsByCategory(categoryName: String) = suspendDataResult {
         getResult {
             fakeStoreApi.getProductsByCategory(categoryName)
+        }
+    }
+
+    suspend fun getUsers() = suspendDataResult {
+        getResult {
+            fakeStoreApi.getUsers()
         }
     }
 }

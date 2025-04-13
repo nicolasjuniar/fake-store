@@ -4,16 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import juniar.nicolas.fakestore.R
 import juniar.nicolas.fakestore.data.model.ProductModel
 import juniar.nicolas.fakestore.databinding.FragmentProductBinding
 import juniar.nicolas.fakestore.databinding.ViewholderProductBinding
+import juniar.nicolas.fakestore.ui.detailproduct.DetailProductActivity
+import juniar.nicolas.fakestore.ui.detailproduct.DetailProductActivity.Companion.ID_PRODUCT
+import juniar.nicolas.fakestore.ui.main.product.ListCategoryActivity.Companion.CATEGORY_SELECTED
+import juniar.nicolas.fakestore.ui.main.product.ListCategoryActivity.Companion.LIST_CATEGORY
 import juniar.nicolas.fakestore.util.BaseViewBindingFragment
 import juniar.nicolas.fakestore.util.GeneralRecyclerViewBindingAdapter
 import juniar.nicolas.fakestore.util.onLoad
+import juniar.nicolas.fakestore.util.openActivity
 import juniar.nicolas.fakestore.util.orEmpty
-import juniar.nicolas.fakestore.util.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProductFragment : BaseViewBindingFragment<FragmentProductBinding>() {
@@ -36,10 +42,17 @@ class ProductFragment : BaseViewBindingFragment<FragmentProductBinding>() {
                 }
             },
             itemListener = { product, _, _ ->
-                viewModel.insertProduct(product.toProductLocal(1, 1))
-                requireActivity().showToast("Success Add to Cart")
+                requireActivity().openActivity<DetailProductActivity>(
+                    bundleOf(ID_PRODUCT to product.id)
+                )
             }
         )
+    }
+
+    private val selectCategoryCallback = createActivityResultLauncer {
+        it.data?.getStringExtra(CATEGORY_SELECTED)?.let { value ->
+            setupCategory(value)
+        }
     }
 
     override fun getContentView(
@@ -64,19 +77,46 @@ class ProductFragment : BaseViewBindingFragment<FragmentProductBinding>() {
     }
 
     private fun setupLayout() {
-        viewBinding.rvProduct.adapter = productListAdapter
-        viewBinding.rvProduct.layoutManager = LinearLayoutManager(requireActivity())
+        with(viewBinding) {
+            rvProduct.adapter = productListAdapter
+            rvProduct.layoutManager = LinearLayoutManager(requireActivity())
+            categoryContainer.setOnClickListener {
+                viewModel.observeListCategory().value?.let {
+                    val listCategory = it + "All"
+                    selectCategoryCallback.launchIntent<ListCategoryActivity>(
+                        bundleOf(
+                            LIST_CATEGORY to listCategory
+                        )
+                    )
+                }
+            }
+        }
     }
 
     private fun setupCategory(categoryName: String) {
-        viewBinding.tvCategory.text = categoryName
-        if (categoryName.equals("All", true)) {
-            viewBinding.categoryContainer.setBackgroundResource(R.drawable.rounded_bg_stroke_purple_500)
-            viewBinding.ivCategory.setImageResource(R.drawable.ic_category_24dp_purple)
-        } else {
-            viewBinding.categoryContainer.setBackgroundResource(R.drawable.rounded_bg_purple_500)
-            viewBinding.ivCategory.setImageResource(R.drawable.ic_category_24dp_white)
+        with(viewBinding) {
+            tvCategory.text = categoryName
+            if (categoryName.equals("All", true)) {
+                categoryContainer.setBackgroundResource(R.drawable.rounded_bg_stroke_purple_500)
+                ivCategory.setImageResource(R.drawable.ic_category_24dp_purple)
+                tvCategory.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.purple_500
+                    )
+                )
+                viewModel.getProducts()
+            } else {
+                categoryContainer.setBackgroundResource(R.drawable.rounded_bg_purple_500)
+                ivCategory.setImageResource(R.drawable.ic_category_24dp_white)
+                tvCategory.setTextColor(
+                    ContextCompat.getColor(
+                        requireActivity(),
+                        R.color.white
+                    )
+                )
+                viewModel.getProductsByCategory(categoryName)
+            }
         }
-        viewModel.getProductsByCategory(categoryName)
     }
 }

@@ -8,8 +8,12 @@ class FakeStoreRepository(private val fakeStoreDataSource: FakeStoreDataSource) 
 
     suspend fun getProducts() = fakeStoreDataSource.getProducts()
 
+    suspend fun getProduct(idProduct: Int) = fakeStoreDataSource.getProduct(idProduct)
+
     suspend fun getCategories() = fakeStoreDataSource.getCategories()
 
     suspend fun getProductsByCategory(categoryName: String) =
         fakeStoreDataSource.getProductsByCategory(categoryName)
+
+    suspend fun getUsers() = fakeStoreDataSource.getUsers()
 }

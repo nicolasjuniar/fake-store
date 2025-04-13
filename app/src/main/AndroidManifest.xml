@@ -17,7 +17,7 @@
         android:theme="@style/Theme.FakeStore"
         tools:targetApi="31">
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.FakeStore.NoActionBar">
             <intent-filter>
@@ -26,11 +26,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.login.LoginActivity"
+            android:theme="@style/Theme.FakeStore.NoActionBar" />
+        <activity
             android:name=".ui.main.MainActivity"
             android:theme="@style/Theme.FakeStore" />
         <activity
             android:name=".ui.main.product.ListCategoryActivity"
             android:theme="@style/Theme.FakeStore" />
+        <activity
+            android:name=".ui.detailproduct.DetailProductActivity"
+            android:theme="@style/Theme.FakeStore" />
     </application>
-
 </manifest>

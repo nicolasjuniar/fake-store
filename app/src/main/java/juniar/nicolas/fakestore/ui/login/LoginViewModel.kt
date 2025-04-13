@@ -16,6 +16,7 @@ class LoginViewModel(
         viewModelScope.launch {
             isLoading.postValue(true)
             fakeStoreRepository.login(loginRequest).onResult({
+                fakeStoreSharedPreference.loggedUsername = loginRequest.username
                 message.postValue("Login Success")
                 isSuccess.postValue(true)
             }, {

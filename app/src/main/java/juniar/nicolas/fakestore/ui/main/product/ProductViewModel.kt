@@ -2,17 +2,13 @@ package juniar.nicolas.fakestore.ui.main.product
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import juniar.nicolas.fakestore.data.local.ProductDao
-import juniar.nicolas.fakestore.data.model.ProductLocal
 import juniar.nicolas.fakestore.data.model.ProductModel
 import juniar.nicolas.fakestore.network.FakeStoreRepository
 import juniar.nicolas.fakestore.util.BaseViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProductViewModel(
     private val fakeStoreRepository: FakeStoreRepository,
-    private val productDao: ProductDao
 ) : BaseViewModel() {
 
     private val listProduct = MutableLiveData<List<ProductModel>>()
@@ -25,6 +21,7 @@ class ProductViewModel(
 
     fun getProducts() {
         viewModelScope.launch {
+            isLoading.postValue(true)
             fakeStoreRepository.getProducts().onResult({
                 listProduct.postValue(it)
             }, {
@@ -50,12 +47,6 @@ class ProductViewModel(
             }, {
                 message.postValue(it)
             })
-        }
-    }
-
-    fun insertProduct(productLocal: ProductLocal) {
-        viewModelScope.launch(Dispatchers.IO) {
-            productDao.insertSingleProduct(productLocal)
         }
     }
 }

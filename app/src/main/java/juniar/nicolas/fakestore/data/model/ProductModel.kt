@@ -19,7 +19,7 @@ data class ProductModel(
     @SerializedName("title")
     val title: String?
 ) {
-    fun toProductLocal(quantity: Int, userId: Int) =
+    fun toProductLocal(quantity: Int, username: String) =
         ProductLocal(
             category,
             description,
@@ -30,7 +30,7 @@ data class ProductModel(
             rating?.count,
             title,
             quantity,
-            userId
+            username
         )
 }
 
